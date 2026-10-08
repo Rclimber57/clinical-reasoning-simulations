@@ -94,7 +94,19 @@ textarea{min-height:82px;resize:vertical}.row{display:flex;gap:10px;flex-wrap:wr
 <label>Third diagnosis</label><input id="fd3" class="input">
 <label>Next diagnostic or therapeutic step</label><textarea id="nextStep"></textarea>
 <button class="btn primary" id="finishBtn">Finish case</button>
-<div id="finishBox" style="display:none" class="notice"><b>Case complete.</b><br>This version is intended for in-class discussion. The final diagnosis and faculty debrief are intentionally not revealed in the online simulation.</div>
+<div id="finishBox" style="display:none">
+    <div class="notice"><b>Case complete.</b><br><b>Final diagnosis:</b> Necrotizing fasciitis.</div>
+    <h3>Faculty Debrief</h3>
+    <div class="notice">
+      <b>Faculty-identified cognitive bias: Visceral bias</b><br>
+      In this case, a key reflection is bias against patients with obesity. Weight bias is a well-recognized and problematic source of diagnostic and interpersonal error in healthcare. Consider whether assumptions related to body habitus influenced how symptoms, examination findings, or diagnostic uncertainty were interpreted.
+    </div>
+    <div class="notice">
+      <b>Main diagnostic pitfall: Excessive confidence in the negative ultrasound</b><br>
+      The ultrasound did not show an abscess, phlegmon, or drainable collection, but that result should not be treated as excluding a necrotizing soft-tissue infection. In this case, over-reassurance from the negative ultrasound contributed to the diagnostic miss.
+    </div>
+    <p><b>Process reflection:</b> Did your reasoning process give you a reasonable opportunity to identify a necrotizing infection despite imaging that appeared reassuring?</p>
+  </div>
 </section>
 </div>
 <aside><div class="card"><h3 style="margin-top:0">Reasoning notebook</h3><div id="notebook" class="muted mini"></div></div></aside>
