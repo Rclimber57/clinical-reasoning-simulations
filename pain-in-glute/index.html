@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clinical Reasoning Simulation — Pain in the Buttocks</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--text:#172033;--muted:#667085;--line:#d9dee7;--accent:#2f5d8a;--accent2:#eaf1f8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.45}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}.wrap{max-width:1100px;margin:0 auto;padding:18px 22px}
+.title{font-size:1.35rem;font-weight:800}.sub{color:var(--muted);font-size:.95rem}.progress{display:flex;gap:7px;margin-top:14px;overflow:auto}
+.step{white-space:nowrap;border:1px solid var(--line);padding:7px 10px;border-radius:999px;font-size:.82rem;background:#fff}.step.active{background:var(--accent);color:#fff}.step.done{background:var(--accent2)}
+main{max-width:1100px;margin:0 auto;padding:24px 22px 60px}.grid{display:grid;grid-template-columns:1fr 330px;gap:20px}.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
+.section{display:none}.section.active{display:block}.notice{background:var(--accent2);border:1px solid #cad8e7;border-radius:10px;padding:12px 14px;margin:12px 0}
+label{display:block;font-weight:650;margin:12px 0 5px}.input,textarea{width:100%;font:inherit;border:1px solid #cfd6df;border-radius:9px;padding:10px 11px;background:#fff;color:var(--text)}
+textarea{min-height:82px;resize:vertical}.row{display:flex;gap:10px;flex-wrap:wrap}.btn{border:1px solid #b9c4d0;background:#fff;padding:10px 14px;border-radius:9px;font-weight:700;cursor:pointer}.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.list{display:grid;gap:9px}.dxrow{display:grid;grid-template-columns:36px 1fr;gap:8px;align-items:center}.tag{font-size:.75rem;border:1px solid var(--line);border-radius:999px;padding:4px 8px;background:#fff}
+.msg{margin:0 0 11px;padding:10px 12px;border-radius:10px;background:#f7f8fa;border:1px solid #e1e5eb}.msg.student{background:#edf4fb}.msg b{display:block;font-size:.78rem;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.transcript{max-height:420px;overflow:auto}.labgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.lab{border:1px solid var(--line);border-radius:9px;padding:9px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.scriptcol{border:1px solid var(--line);border-radius:10px;padding:10px;background:#fafbfc}.muted{color:var(--muted)}.mini{font-size:.88rem}
+@media(max-width:850px){.grid{grid-template-columns:1fr}.three,.labgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div class="title">Clinical Reasoning Simulation — Pain in the Buttocks</div><div class="sub">Formative diagnostic reasoning practice</div><div class="progress" id="progress"></div></div></header>
+<main><div class="grid"><div>
+<section id="s1" class="section active card">
+<h2>1. Doorway Differential</h2>
+<p class="muted">Before obtaining additional history or examination findings, use backward reasoning to generate 6–8 possible diagnoses.</p>
+<div class="notice"><b>Patient stem:</b> 28-year-old woman with a history of depression, anxiety, and morbid obesity presenting with several days of right buttock warmth, redness, and pain, with one day of fever.</div>
+<div id="dxInputs" class="list"></div>
+<div class="row" style="margin-top:14px"><button class="btn primary" id="s1next">Continue to Active H&P</button></div>
+</section>
+
+<section id="s2" class="section card">
+<h2>2. Active History & Physical Examination</h2>
+<div class="notice"><b>Patient stem</b><br>28-year-old woman with depression, anxiety, and morbid obesity presenting with several days of right buttock warmth, redness, and pain, plus one day of fever.</div>
+<p>Ask a history question or request a specific physical examination finding. History domains such as PMH, social history, and family history can be requested semantically. Physical examination should be targeted.</p>
+<div class="row"><input id="encounterInput" class="input" placeholder="Ask a history question or request a specific exam finding…"><button class="btn primary" id="askBtn">Ask / Examine</button></div>
+<div class="row" style="margin-top:10px"><button class="btn" id="s2next">Next section</button></div>
+<h3>Encounter transcript</h3><div id="transcript" class="transcript"></div>
+</section>
+
+<section id="s3" class="section card">
+<h2>3. Base Rates of Disease</h2>
+<p class="muted">Estimate incidence or prevalence for the diagnoses you are considering. Approximate estimates are acceptable.</p>
+<div id="baseRateRows" class="list"></div>
+<div class="row" style="margin-top:14px"><button class="btn primary" data-next="4">Next</button></div>
+</section>
+
+<section id="s4" class="section card">
+<h2>Diagnostic Data</h2>
+<h3>Laboratory studies</h3>
+<div class="labgrid">
+<div class="lab">Sodium <b>130</b></div><div class="lab">Potassium <b>4.0</b></div><div class="lab">Creatinine <b>1.67</b></div>
+<div class="lab">BUN <b>30</b></div><div class="lab">CRP <b>&gt;300 mg/dL</b></div><div class="lab">ESR <b>78</b></div>
+<div class="lab">WBC <b>23</b></div><div class="lab">Hemoglobin <b>10.3</b></div><div class="lab">Platelets <b>480</b></div>
+</div>
+<h3>Ultrasound of right buttock</h3>
+<div class="notice">Extensive soft-tissue stranding consistent with severe cellulitis. No visualized abscess, phlegmon, or drainable collection.</div>
+<div class="row"><button class="btn primary" data-next="5">Continue to Illness Script</button></div>
+</section>
+
+<section id="s5" class="section card">
+<h2>4. Assemble the Illness Script</h2>
+<label>One-sentence problem representation</label><textarea id="problemRep"></textarea>
+<div class="three" id="scriptGrid"></div>
+<div class="row" style="margin-top:14px"><button class="btn primary" data-next="6">Continue to Know Your Test</button></div>
+</section>
+
+<section id="s6" class="section card">
+<h2>5. Know Your Test</h2>
+<p class="muted">Estimate the probability of your diagnoses and select testing that would meaningfully change your thinking.</p>
+<div class="notice"><a href="http://getthediagnosis.org/calculator.htm" target="_blank" rel="noopener noreferrer">Open GetTheDiagnosis diagnostic test calculator</a></div>
+<label>Diagnosis being evaluated</label><input id="testDx" class="input">
+<label>Estimated pretest probability</label><input id="pretest" class="input">
+<label>Test you would obtain</label><input id="testName" class="input">
+<label>How would the result change your thinking?</label><textarea id="testImpact"></textarea>
+<div class="row" style="margin-top:14px"><button class="btn primary" data-next="7">Continue</button></div>
+</section>
+
+<section id="s7" class="section card">
+<h2>6. Diagnostic Pitfalls & Areas of Bias</h2>
+<label>Disease mimic or diagnostic pitfall</label><textarea id="pitfallText"></textarea>
+<label>Area of potential cognitive bias</label><textarea id="biasText"></textarea>
+<div class="row" style="margin-top:14px"><button class="btn primary" data-next="8">Continue</button></div>
+</section>
+
+<section id="s8" class="section card">
+<h2>7. Final Problem Representation & Differential Diagnosis</h2>
+<label>Final problem representation</label><textarea id="finalPR"></textarea>
+<label>Top diagnosis</label><input id="fd1" class="input">
+<label>Second diagnosis</label><input id="fd2" class="input">
+<label>Third diagnosis</label><input id="fd3" class="input">
+<label>Next diagnostic or therapeutic step</label><textarea id="nextStep"></textarea>
+<button class="btn primary" id="finishBtn">Finish case</button>
+<div id="finishBox" style="display:none" class="notice"><b>Case complete.</b><br>This version is intended for in-class discussion. The final diagnosis and faculty debrief are intentionally not revealed in the online simulation.</div>
+</section>
+</div>
+<aside><div class="card"><h3 style="margin-top:0">Reasoning notebook</h3><div id="notebook" class="muted mini"></div></div></aside>
+</div></main>
+
+<script>
+(()=>{const $=s=>document.querySelector(s);const state={dx:[],history:[]};const names=['Doorway','Active H&P','Base Rates','Data','Illness Script','Know Your Test','Bias & Pitfalls','Final'];names.forEach((n,i)=>{const d=document.createElement('div');d.className='step';d.textContent=(i+1)+'. '+n;$('#progress').appendChild(d)});
+function show(n){document.querySelectorAll('.section').forEach(x=>x.classList.remove('active'));$('#s'+n).classList.add('active');document.querySelectorAll('.step').forEach((x,i)=>{x.classList.toggle('active',i===n-1);x.classList.toggle('done',i<n-1)});scrollTo(0,0);updateNotebook()}
+function esc(s=''){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+for(let i=1;i<=8;i++){const r=document.createElement('div');r.className='dxrow';r.innerHTML='<div class="tag">'+i+'</div><input class="input doorwayDx" placeholder="Diagnosis '+i+'">';$('#dxInputs').appendChild(r)}
+$('#s1next').onclick=()=>{state.dx=[...document.querySelectorAll('.doorwayDx')].map(x=>x.value.trim()).filter(Boolean);if(state.dx.length<6){alert('Please enter at least 6 diagnoses.');return}buildBase();buildScripts();show(2)}
+function addMsg(role,text){const d=document.createElement('div');d.className='msg '+(role==='Student'?'student':'');d.innerHTML='<b>'+role+'</b>'+esc(text);$('#transcript').appendChild(d);state.history.push({role,text})}
+function answer(q){const x=q.toLowerCase().trim();
+if(/^(physical exam|exam|full exam|complete exam|give me.*exam)/.test(x))return 'Active physical examination promotes clinical reasoning. Please request a specific examination maneuver or finding.';
+if(/hpi|history of present|tell me more|course|timeline|progress/.test(x))return 'She reports 5–6 days of redness, pain, and swelling of the right buttock, progressing to involve the right labia majora. Over the last day she developed fever to 103°F. She feels poorly and has diffuse myalgias.';
+if(/previous|prior ed|emergency|ct|bactrim|antibiotic/.test(x))return 'She first presented to the ED four days ago after 1–2 days of rapidly spreading redness, pain, and warmth. CT pelvis was read as soft-tissue inflammatory changes consistent with cellulitis without deeper infection. She was prescribed Bactrim but could not pick it up because she lacked transportation to the pharmacy.';
+if(/injury|trauma|wound|rash before|sore/.test(x))return 'She reports no preceding rash, injury, or sores, and she has never had anything like this before.';
+if(/diarrhea|abdominal|back pain|joint|vaginal discharge|vaginal bleeding|rectal bleeding/.test(x))return 'She denies diarrhea, abdominal pain, back pain, joint issues, vaginal discharge, vaginal bleeding, and rectal bleeding.';
+if(/past medical|pmh|medical history/.test(x))return 'Past medical history: morbid obesity with BMI 68, anxiety, depression, and PTSD.';
+if(/social|smok|alcohol|drug|substance/.test(x))return 'Social history: no smoking, social alcohol use consisting of a couple of drinks on weekends, and no reported illicit substance use including fentanyl, cocaine, methamphetamine, or prescription-pill abuse.';
+if(/family|fh/.test(x))return 'Family history: mother with depression and father with diabetes.';
+if(/vital|temperature|temp|heart rate|pulse|blood pressure|bp|respiratory rate|rr/.test(x))return 'Temperature 103.2°F, heart rate 122, respiratory rate 22, blood pressure 126/74.';
+if(/general|appearance|distress/.test(x))return 'She appears uncomfortable but has no respiratory distress.';
+if(/lung|respiratory|auscult/.test(x))return 'Lungs are clear to auscultation bilaterally. She is mildly tachypneic without respiratory distress.';
+if(/cardiac|heart|rhythm/.test(x))return 'She is tachycardic with a regular rhythm.';
+if(/abdomen|abdominal exam/.test(x))return 'Abdomen is nontender and nondistended without obvious organomegaly, though the examination is limited by body habitus.';
+if(/buttock|glute|skin|erythema|induration|drain|purulen|abscess|swelling|edema/.test(x))return 'There is a large area of erythema over the right buttock, previously demarcated by pen and not extending beyond those marks. There is induration in the medial gluteal area and marked tenderness. Within the gluteal cleft is a 1–2 cm defect with freely expressible purulent drainage. The right labia majora is erythematous and swollen.';
+if(/vaginal|labia|introitus|mucous|mucosal/.test(x))return 'The right labia majora is erythematous and swollen. There are no mucous-membrane lesions within the vaginal introitus.';
+return 'That specific information is not documented in the available case information.'}
+$('#askBtn').onclick=()=>{const q=$('#encounterInput').value.trim();if(!q)return;addMsg('Student',q);addMsg('Patient / Examiner',answer(q));$('#encounterInput').value=''};$('#encounterInput').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();$('#askBtn').click()}};$('#s2next').onclick=()=>show(3);
+function buildBase(){const b=$('#baseRateRows');b.innerHTML='';state.dx.forEach((d,i)=>{const x=document.createElement('div');x.innerHTML='<label>'+(i+1)+'. '+esc(d)+'</label><input class="input" placeholder="Incidence/prevalence or qualitative base-rate estimate">';b.appendChild(x)})}
+function buildScripts(){const g=$('#scriptGrid');g.innerHTML='';for(let i=0;i<3;i++){const d=state.dx[i]||'';const c=document.createElement('div');c.className='scriptcol';c.innerHTML='<label>Diagnosis '+(i+1)+'</label><input class="input" value="'+esc(d)+'"><label>Epidemiology</label><textarea></textarea><label>History</label><textarea></textarea><label>Physical exam</label><textarea></textarea><label>Pathophysiology</label><textarea></textarea><label>Labs / imaging</label><textarea></textarea><label>Pretest odds</label><textarea></textarea>';g.appendChild(c)}}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-next]');if(b)show(+b.dataset.next)});
+function updateNotebook(){const dx=state.dx.filter(Boolean);$('#notebook').innerHTML='<b>Doorway differential</b><br>'+(dx.length?dx.map((d,i)=>(i+1)+'. '+esc(d)).join('<br>'):'Not yet entered.')}
+$('#finishBtn').onclick=()=>{$('#finishBox').style.display='block';$('#finishBtn').disabled=true}
+show(1)})();
+</script>
+</body>
+</html>
